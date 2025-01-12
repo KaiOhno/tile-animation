@@ -1,4 +1,4 @@
-import TileAnimation from './components/TileAnimation'
+import TileAnimation from './components/TileAnimation.jsx'  // Note the .jsx extension
 
 function App() {
   return (
