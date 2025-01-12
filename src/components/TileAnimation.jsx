@@ -1,5 +1,5 @@
+
 import { useState, useEffect } from 'react';
-import './TileAnimation.css';
 
 const TileAnimation = () => {
   const [tiles, setTiles] = useState([]);
@@ -30,7 +30,10 @@ const TileAnimation = () => {
         
         const duration = (500 / animationSpeed) + Math.random() * (300 / animationSpeed);
         
+        // Random color selection from colors array
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Random rotation and scale variations
         const rotation = Math.random() * 360;
         const scale = 0.8 + Math.random() * 0.4;
         
@@ -66,7 +69,7 @@ const TileAnimation = () => {
     
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [tileSize, animationSpeed, colors, key, generateTiles]); // Added generateTiles to dependencies
+  }, [tileSize, animationSpeed, colors, key]);
   
   const handleReset = () => {
     setKey(prev => prev + 1);
@@ -106,6 +109,7 @@ const TileAnimation = () => {
         ))}
       </div>
       
+      {/* Controls */}
       <div className="absolute top-4 left-4 z-10 flex flex-col gap-4 bg-black/50 p-4 rounded">
         <div className="flex gap-4">
           <div className="flex flex-col">
@@ -179,6 +183,25 @@ const TileAnimation = () => {
           </div>
         </div>
       </div>
+      
+      <style jsx global>{`
+        @keyframes tileReveal {
+          0% { 
+            opacity: 0;
+            transform: scale(0) rotate(0deg);
+          }
+          100% { 
+            opacity: 1;
+            transform: scale(var(--scale)) rotate(var(--rotation));
+          }
+        }
+        
+        .animate-tileReveal {
+          animation: tileReveal 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+          --scale: var(--tile-scale);
+          --rotation: var(--tile-rotation);
+        }
+      `}</style>
     </div>
   );
 };
